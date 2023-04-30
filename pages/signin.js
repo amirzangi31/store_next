@@ -1,12 +1,15 @@
 import React from "react";
 import { useState } from "react";
+
 import validateSign from "@/validateForm/validateSign";
+
 import { useEffect } from "react";
-import SignInPage from "@/components/template/SignInPage";
-import axios from "axios";
 import { useRouter } from "next/router";
 import notify from "@/services/Toastify";
+
+
 import { signIn } from "next-auth/react";
+import SignInPage from "@/components/templates/auth/SignInPage";
 
 function SignIn() {
   const [loading, setLoading] = useState(false);

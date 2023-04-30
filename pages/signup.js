@@ -1,4 +1,4 @@
-import SignUpPage from "@/components/template/SignUpPage";
+import SignUpPage from "@/components/templates/auth/SignUpPage";
 import notify from "@/services/Toastify";
 import validateSign from "@/validateForm/validateSign";
 import axios from "axios";
