@@ -2,26 +2,665 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+@font-face {
+  font-family: "Vazir";
+  src: url("../public/fonts/Vazirmatn-Regular.woff2");
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Vazir";
+  src: url("../public/fonts/Vazirmatn-Light.woff2");
+  font-weight: normal;
+  font-style: normal;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+@font-face {
+  font-family: "Vazir";
+  src: url("../public/fonts/Vazirmatn-Bold.woff2");
+  font-weight: bold;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Vazir";
+  src: url("../public/fonts/Vazirmatn-Black.woff2");
+  font-weight: 900;
+  font-style: normal;
+}
+
+@layer components {
+  /* Navabr */
+  .badge-one {
+    @apply rounded-full border p-1 text-xs bg-primary w-6 h-6 flex justify-center items-center;
+    color: white;
+    position: absolute;
+    bottom: -10px;
+    right: -10px;
   }
+  .navbar {
+    z-index: 200;
+    transition: all 800ms;
+    background: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 20px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(100px);
+    -webkit-backdrop-filter: blur(100px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    -webkit-transition: all 800ms;
+    -moz-transition: all 800ms;
+    -ms-transition: all 800ms;
+    -o-transition: all 800ms;
+  }
+  .item-list-navbar {
+    @apply relative mx-6 text-primary transition-all duration-700;
+  }
+  .item-list-navbar:hover {
+    @apply relative mx-6 text-white;
+  }
+  .item-list-navbar::after {
+    @apply bg-white transition-all duration-300;
+    content: "";
+    position: absolute;
+    bottom: -10px;
+    right: 50%;
+    width: 0;
+    height: 2px;
+  }
+  .item-list-navbar:hover::after {
+    width: 100%;
+    right: 0;
+  }
+  .menu-mobile {
+    @apply bg-secondary;
+    height: 100vh;
+    position: absolute;
+    top: -100vh;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    transition: all 800ms;
+    -webkit-transition: all 800ms;
+    -moz-transition: all 800ms;
+    -ms-transition: all 800ms;
+    -o-transition: all 800ms;
+  }
+  .menu-mobile.active {
+    top: 0;
+  }
+  /* Navabr */
+
+
+
+
+
+  /* title */
+  .title {
+    @apply py-4 text-center;
+  }
+  .title h3 {
+    @apply text-primary relative text-xl md:text-3xl  inline-block mx-auto;
+  }
+  .title h3::after {
+    @apply bg-primary;
+    content: "";
+    position: absolute;
+    bottom: -5px;
+    right: -10px;
+    width: 70%;
+    height: 5px;
+  }
+  /* title */
+
+  /* card services */
+  .card-services {
+    @apply rounded-lg overflow-hidden relative border border-white transition-all duration-500 cursor-pointer;
+  }
+  .card-services:hover {
+    transform: translateY(-5px) scale(1.01);
+    -webkit-transform: translateY(-5px) scale(1.01);
+    -moz-transform: translateY(-5px) scale(1.01);
+    -ms-transform: translateY(-5px) scale(1.01);
+    -o-transform: translateY(-5px) scale(1.01);
+  }
+  .card-services:hover .card-services__image::after {
+    background: rgb(0, 0, 0, 0.9);
+    background: linear-gradient(
+      90deg,
+      rgba(0, 0, 0, 0.7) 0%,
+      rgba(0, 0, 0, 0.7) 0%
+    );
+  }
+  .card-services__image {
+    @apply relative;
+  }
+  .card-services__image::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: rgb(0, 0, 0, 0.5);
+    background: linear-gradient(
+      90deg,
+      rgba(0, 0, 0, 0.1) 10%,
+      rgba(0, 0, 0, 0.6) 45%
+    );
+    top: 0;
+    left: 0;
+    z-index: 10;
+  }
+  .card-services__image img {
+    width: 100%;
+    height: 300px;
+  }
+  .card-services__body {
+    @apply absolute transition-all duration-500 rounded-lg text-white p-2 text-center flex justify-center items-center flex-col w-11/12 lg:w-4/12;
+    z-index: 100;
+    top: 10%;
+    left: 5%;
+    height: 80%;
+  }
+  .card-services:hover .card-services__body {
+    width: calc(100% - 10%);
+  }
+  .card-services__body::after {
+    @apply rounded-lg;
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background-color: rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(5px);
+  }
+  .card-services__title {
+    @apply text-3xl shadow-primary text-transparent;
+    font-weight: 900;
+    color: white;
+    text-shadow: -1px -1px 0 #43a047, 1px -1px 0 #43a047, -1px 1px 0 #43a047,
+      1px 1px 0 #43a047;
+  }
+  .card-services__text {
+    @apply text-xs font-bold;
+  }
+  /* card services */
+
+  /* card products */
+  .card-products {
+    @apply transition-all duration-500;
+  }
+  .card-products:hover {
+    @apply shadow-2xl;
+  }
+
+  .card-products .price {
+    @apply transition-all duration-700;
+    width: 100px;
+  }
+  .card-products:hover .price {
+    @apply bg-primary text-white rounded-md;
+  }
+  .card-products .card-actions {
+    @apply transition-all duration-500 flex;
+  }
+  .card-products .card-actions button {
+    @apply transition-all w-5/12 duration-500;
+  }
+  /* .card-products:hover .card-actions {
+    @apply flex-col;
+  } */
+  /* .card-products:hover .card-actions button {
+    @apply w-6/12;  
+  } */
+  /* card products */
+
+  /* card oprator */
+  .card-oprator .card-actions button {
+    transition: all 500ms;
+    -webkit-transition: all 500ms;
+    -moz-transition: all 500ms;
+    -ms-transition: all 500ms;
+    -o-transition: all 500ms;
+    width: 150px;
+    max-width: 100%;
+  }
+
+  .card-oprator:hover .card-actions button {
+    width: 100%;
+  }
+  /* card oprator */
+
+  /* card instagram */
+
+  .card-instagram {
+    @apply relative flex justify-start items-center flex-col lg:flex-row;
+  }
+  .card-instagram img {
+    z-index: 20;
+  }
+  .card-instagram__body {
+    @apply px-10 lg:text-xl text-primary text-center lg:text-right my-4 lg:my-0;
+    z-index: 20;
+  }
+  .card-instagram__button {
+    @apply lg:ml-4 lg:mr-auto;
+    z-index: 20;
+  }
+  .card-instagram::after {
+    @apply rounded-lg bg-white shadow-xl h-36 lg:h-24;
+    content: "";
+    display: block;
+    position: absolute;
+    width: 100%;
+    top: calc(50% - 48px);
+    left: 0;
+    z-index: 1;
+  }
+
+  /* card instagram */
+
+  /* content-page */
+  .content-page {
+    @apply pt-24 pb-10;
+  }
+  /* content-page */
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  body {
+    
+    min-height: 100vh;
+    font-size: 14px;
+    background-color: #f5f5f5;
+  }
+
+html {
+  scroll-behavior: smooth;
 }
+
+input {
+  background-color: white ;
+}
+textarea {
+  background-color: white;
+}
+
+
+
+
+
+.swiper-slide {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+}
+
+.swiper-button-next,
+.swiper-button-prev {
+  @apply flex justify-center items-center border bg-primary border-primary rounded-full;
+  width: 40px !important;
+  height: 40px !important;
+}
+
+.swiper-button-next::after,
+.swiper-button-prev::after {
+  @apply text-white;
+  transform: scale(0.3);
+  -webkit-transform: scale(0.3);
+  -moz-transform: scale(0.3);
+  -ms-transform: scale(0.3);
+  -o-transform: scale(0.3);
+}
+
+/*-------footer---------*/
+footer {
+  font-family: "Vazir";
+}
+.footer {
+  @apply p-4 shadow-2xl mt-5 bg-secondary overflow-hidden rounded-xl flex justify-between items-center flex-col md:flex-row;
+}
+.footer__icon {
+  @apply hover:scale-125  transition-all duration-500 cursor-pointer;
+}
+
+.footer__line {
+  @apply relative;
+  height: 100%;
+}
+
+.footer__line::after {
+  @apply bg-primary;
+  content: " ";
+  display: none;
+  position: absolute;
+  top: 10%;
+  left: 0;
+  width: 2px;
+  height: 80%;
+}
+
+.footer__form-group {
+  @apply flex justify-between items-start flex-col;
+}
+
+.footer__form-group label {
+  @apply my-1 text-primary font-bold text-xs;
+}
+.footer__form-group input {
+  @apply w-full border py-2 px-2 rounded-lg bg-transparent border-primary text-primary focus:outline-none focus:bg-white;
+}
+.footer__form-group textarea {
+  @apply w-full border py-2 px-2 rounded-lg bg-transparent border-primary text-primary focus:outline-none focus:bg-white;
+}
+
+/*-------footer---------*/
+/*-----------toast ------------*/
+.toast {
+  font-family: "Vazir" !important;
+  background-color: transparent !important;
+  position: relative;
+  color: #43a047 !important;
+}
+.toast .Toastify__close-button {
+  color: #43a047 !important;
+}
+.toast::after {
+  @apply bg-primary;
+  content: "";
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  background: rgba(255, 255, 255, 0.44);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(9.6px);
+  -webkit-backdrop-filter: blur(9.6px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+.toast-error {
+  @apply text-primary;
+  font-family: "Vazir" !important;
+  background-color: transparent !important;
+  position: relative;
+  color: red !important;
+}
+.toast-error .Toastify__close-button {
+  color: red !important;
+}
+.toast-error::after {
+  @apply bg-primary;
+  content: "";
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  background: rgba(255, 255, 255, 0.44);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(9.6px);
+  -webkit-backdrop-filter: blur(9.6px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+/*-----------toast ------------*/
+
+/*-----------btn send ------------*/
+.btn-send {
+  @apply btn btn-sm border w-full btn-primary my-4;
+}
+/*-----------btn send ------------*/
+
+/*-----------------signUp and singIn page-------------------*/
+
+.form-s {
+  @apply shadow-2xl w-96 rounded-lg p-4;
+}
+
+.form-s__form-group {
+  @apply flex flex-col mt-4;
+}
+.form-s label {
+  @apply text-xs;
+}
+.form-s input {
+  @apply w-full  my-2 p-2 rounded-lg focus:outline-none border text-primary;
+}
+
+/*-----------------signUp and singIn page-------------------*/
+
+/*--------------------big form------------------------*/
+.form-b {
+  @apply shadow-2xl w-full rounded-lg p-4;
+}
+
+.form-b__form-group {
+  @apply flex flex-col mt-4 w-full md:w-6/12 px-2;
+}
+.form-b__form-group-text {
+  @apply flex flex-col mt-4 px-2;
+}
+.form-b label {
+  @apply text-xs;
+}
+.form-b input {
+  @apply w-full  my-2 p-2 rounded-lg focus:outline-none border text-primary;
+}
+
+.form-b select {
+  @apply w-full  my-2 p-2 rounded-lg focus:outline-none border text-primary;
+}
+.form-b textarea {
+  @apply w-full  my-2 p-2 rounded-lg focus:outline-none border text-primary;
+}
+/*--------------------big form------------------------*/
+
+/*--------------------card repire------------------------*/
+.card-repire {
+  @apply relative;
+}
+.card-repire__content {
+  @apply relative;
+}
+.card-repire__content:hover p {
+  opacity: 1;
+}
+.card-repire__content:hover::after {
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+}
+.card-repire__content::after {
+  @apply w-full h-full top-0 left-0 lg:w-0 lg:h-0 lg:top-1/2 lg:left-1/2;
+  content: "";
+
+  background-color: rgba(0, 0, 0, 0.5);
+  position: absolute;
+
+  transition: all 500ms;
+  -webkit-transition: all 500ms;
+  -moz-transition: all 500ms;
+  -ms-transition: all 500ms;
+  -o-transition: all 500ms;
+}
+.card-repire__content p {
+  @apply text-white absolute transition-all duration-300 delay-300 opacity-100 lg:opacity-0;
+  top: 50%;
+  width: 100%;
+  text-align: center;
+  left: 0;
+  z-index: 10;
+}
+/*--------------------card repire------------------------*/
+
+/*--------------------dashboard------------------------*/
+
+.dashboard__image {
+  @apply relative;
+}
+.dashborad__icon-profile {
+  @apply w-10 h-10 cursor-pointer shadow-lg bg-white flex justify-center items-center rounded-full;
+  display: flex !important;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+}
+.dashborad__icon-profile label {
+  @apply text-lg cursor-pointer;
+}
+
+/*--------------------dashboard------------------------*/
+
+/*------------content admin--------------*/
+.content-admin {
+  @apply flex justify-start items-start flex-wrap  rounded-lg p-5 shadow-lg bg-secondary;
+  min-height: calc(100vh - 48px);
+}
+
+.card-admin {
+  @apply p-2 w-3/12 h-72 max-w-full;
+}
+
+.card-admin__body {
+  @apply rounded-lg shadow-md text-primary bg-white w-full h-full flex justify-center items-center;
+}
+
+/*------------content admin--------------*/
+
+/*------------content modal--------------*/
+.content-modal {
+  @apply flex justify-center items-center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  width: 100%;
+  height: 100vh;
+  z-index: 1000;
+}
+.modal-sitecomments {
+}
+/*------------content admin--------------*/
+
+/*------------editor style--------------*/
+.editor {
+  @apply border border-primary rounded-md w-full overflow-hidden;
+}
+.btns-editor {
+  @apply flex justify-between items-center flex-wrap border-b border-primary;
+}
+.btns-editor button,
+.btns-editor label {
+  @apply m-1 btn btn-sm btn-primary opacity-20 text-xs;
+}
+
+.btns-editor button.active {
+  @apply opacity-100;
+}
+
+.ProseMirror {
+  @apply p-2 border-none outline-none min-h-16;
+}
+
+.ProseMirror > * + * {
+  margin-top: 0.75em;
+}
+.ProseMirror ol {
+  padding: 0 1rem;
+  list-style-type: decimal;
+}
+
+.ProseMirror ul {
+  padding: 0 1rem;
+  list-style-type: square;
+}
+.ProseMirror h1 {
+  font-size: 36px;
+  line-height: 40px;
+}
+
+.ProseMirror h2 {
+  font-size: 30px;
+  line-height: 40px;
+}
+
+.ProseMirror h3 {
+  font-size: 24px;
+  line-height: 40px;
+}
+
+.ProseMirror h4 {
+  font-size: 18px;
+  line-height: 20px;
+}
+
+/* Won't be used here */
+
+.ProseMirror h5 {
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.ProseMirror h6 {
+  font-size: 12px;
+  line-height: 20px;
+}
+
+.ProseMirror h1,
+.ProseMirror h2,
+.ProseMirror h3,
+.ProseMirror h4,
+.ProseMirror h5,
+.ProseMirror h6 {
+  line-height: 1.1;
+}
+
+.ProseMirror code {
+  background-color: #a58181;
+  color: #616161;
+}
+
+.ProseMirror pre {
+  background: #0d0d0d;
+  color: #fff;
+  font-family: "JetBrainsMono", monospace;
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+}
+
+.ProseMirror pre code {
+  color: inherit;
+  padding: 0;
+  background: none;
+  font-size: 0.8rem;
+}
+
+.ProseMirror img {
+  max-width: 50%;
+  height: auto;
+  margin: 0 auto;
+}
+
+.ProseMirror blockquote {
+  padding-right: 1rem;
+  border-right: 2px solid #9c9c9c;
+}
+
+.ProseMirror hr {
+  border: none;
+  border-top: 2px solid #9c9c9c;
+  margin: 2rem 0;
+}
+/*------------editor style--------------*/
+
+/*------------card category--------------*/
+.card-category {
+  @apply bg-white h-36 rounded-lg flex justify-center items-center flex-col;
+}
+.card-category__title {
+  @apply text-primary;
+}
+/*------------card category--------------*/
